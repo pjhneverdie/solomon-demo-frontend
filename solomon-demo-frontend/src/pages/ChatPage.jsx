@@ -94,6 +94,7 @@ function SendingMessages() {
         }
     };
 
+    
     // 메시지 입력 시 상태 업데이트
     const handleChange = (e) => {
         setMessage(e.target.value);
