@@ -13,6 +13,7 @@ const handleDisConnect = (frame) => {
     console.log('STOMP 연결 종료 프레임 받음, 헤더:', frame.headers);
 };
 
+
 const handleStompError = (frame) => {
     console.log('STOMP 에러 프레임 받음:, 헤더', frame.headers);
 };
@@ -55,7 +56,7 @@ function ChatPage() {
                     카카오 로그인
                 </button>
             </div>
-            <SendingMessages/>
+            <SendingMessages />
         </StompSessionProvider>
 
     );
@@ -69,14 +70,14 @@ function SubscribingComponent() {
     //Note that all subscriptions made through the library are automatically removed when their owning component gets unmounted.
     //If the STOMP connection itself is lost they are however restored on reconnect.
     //You can also supply an array as the first parameter, which will subscribe to all destinations in the array
-    useSubscription("/topic/test", (message) => setLastMessage(message.body));
+    useSubscription("/topic/test", (message) => setLastMessage(message.body), { receipt: 'roomId' });
 
     return <div>Last Message: {lastMessage}</div>;
 }
 
 function SendingMessages() {
-    const [message, setMessage] = useState(""); // 텍스트 폼 입력 상태
-    const stompClient = useStompClient(); // STOMP 클라이언트
+    const [message, setMessage] = useState(""); 
+    const stompClient = useStompClient();
 
     // 메시지 보내는 함수
     const sendMessage = () => {
@@ -94,7 +95,7 @@ function SendingMessages() {
         }
     };
 
-    
+
     // 메시지 입력 시 상태 업데이트
     const handleChange = (e) => {
         setMessage(e.target.value);
