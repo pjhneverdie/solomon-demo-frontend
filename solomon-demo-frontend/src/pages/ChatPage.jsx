@@ -13,7 +13,6 @@ const handleDisConnect = (frame) => {
     console.log('STOMP 연결 종료 프레임 받음, 헤더:', frame.headers);
 };
 
-
 const handleStompError = (frame) => {
     console.log('STOMP 에러 프레임 받음:, 헤더', frame.headers);
 };

@@ -1,9 +1,30 @@
 import { Outlet } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Bars3Icon } from "@heroicons/react/24/outline";
+import { useMemberStore } from "../stores/useMemberStore";
 
 export default function ChatLayout() {
+    const { setMember, clearMember } = useMemberStore();
+
+    useEffect(() => {
+        async function checkAuth() {
+            try {
+                const res = await fetch("/member/me", { credentials: "include" });
+                if (res.ok) {
+                    const data = await res.json();
+                    setMember(data);
+                } else {
+                    clearMember();
+                }
+            } catch {
+                clearMember();
+            }
+        }
+
+        checkAuth();
+    }, [setMember, clearMember]);
+
     const [open, setOpen] = useState(true);
 
     return (
