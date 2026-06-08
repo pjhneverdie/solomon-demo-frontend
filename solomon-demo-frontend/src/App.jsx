@@ -12,6 +12,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <ChatLayout />,
+    loader: authLoader,
     children: [
       {
         index: true,

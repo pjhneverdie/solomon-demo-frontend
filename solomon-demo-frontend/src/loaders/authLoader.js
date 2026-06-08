@@ -7,8 +7,6 @@ export async function authLoader() {
         console.log("dsadsa");
         await sleep(2000);
 
-        
-
         const res = await fetch(
             "https://humble-goggles-v6gv597j9qw9fjr4-8080.app.github.dev/member/me",
             {
