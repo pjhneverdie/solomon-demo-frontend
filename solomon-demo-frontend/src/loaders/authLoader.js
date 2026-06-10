@@ -1,31 +1,22 @@
 import { redirect } from "react-router";
 import { useMemberStore } from "../stores/useMemberStore";
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+import { apiFetch } from "../app/api/apiClient";
 
 export async function authLoader() {
-    try {
-        console.log("dsadsa");
-        await sleep(2000);
+    const store = useMemberStore.getState();
 
-        const res = await fetch(
-            "https://humble-goggles-v6gv597j9qw9fjr4-8080.app.github.dev/member/me",
-            {
-                credentials: "include",
-            }
-        );
+    try {
+        const res = await apiFetch("/member/me?ts=" + Date.now());
 
         if (!res.ok) {
-            useMemberStore.getState().clearMember();
+            store.clearMember();
             throw redirect("/login");
         }
 
-        const member = await res.json();
-
-        useMemberStore.getState().setMember(member);
-
-        return member;
-    } catch (e) {
-        useMemberStore.getState().clearMember();
+        const { value: member } = await res.json();
+        store.setMember(member);
+    } catch {
+        store.clearMember();
         throw redirect("/login");
     }
 }

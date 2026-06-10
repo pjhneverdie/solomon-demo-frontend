@@ -2,6 +2,10 @@ import solomonLogoDiscoImage from "../assets/solomon-logo-disco.png";
 import googleLogoImage from "../assets/google-logo.png";
 import kakaoLogoImage from "../assets/kakao-logo.png";
 
+function loginWithGoogle() {
+    window.location.href = "https://humble-goggles-v6gv597j9qw9fjr4-8080.app.github.dev/oauth2/authorization/google";
+}
+
 function LoginPage() {
     return (
         <div className={`
@@ -54,8 +58,8 @@ function LoginPage() {
                 <div className="
                         flex flex-col
                         w-full h-auto shrink-0
-                        px-[16px]
-                ">
+                        px-[16px]   
+                " onClick={loginWithGoogle}>
                     <div
                         className={`
                             flex items-center
