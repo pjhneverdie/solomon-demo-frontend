@@ -1,15 +1,21 @@
 import { create } from "zustand";
 
+/**
+ * {
+ * chatRoomUuid: {chatRoomUuid},
+ * issueTitle: {issueTitle}
+ * }
+ */
 export const useChatStore = create((set) => ({
     chatRooms: {},
 
-    addRoom: (room) =>
+    addChatRoom: (chatRoom) =>
         set((state) => ({
             chatRooms: {
                 ...state.chatRooms,
-                [room.chatRoomUuid]: {
-                    ...room,
-                    messages: room.messages ?? [],
+                [chatRoom.chatRoomUuid]: {
+                    ...chatRoom,
+                    messages: chatRoom.messages ?? [],
                 },
             },
         })),

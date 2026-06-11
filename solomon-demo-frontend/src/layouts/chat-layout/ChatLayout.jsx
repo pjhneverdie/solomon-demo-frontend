@@ -1,9 +1,11 @@
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import { Bars3Icon } from "@heroicons/react/24/outline";
-import { API_BASE_URL } from "../app/const/appConstant";
+import { API_BASE_URL } from "../../app/const/appConstant";
 import { StompSessionProvider, useSubscription, useStompClient } from "react-stomp-hooks";
-import { useMemberStore } from "../stores/useMemberStore";
+import { useMemberStore } from "../../stores/useMemberStore";
+import Sidebar from "./SideBar";
+import ChatRoomList from "./ChatRoomList";
 
 const handleConnect = (frame) => {
     console.log('STOMP 연결 프레임 받음, 헤더:', frame.headers);
@@ -39,20 +41,16 @@ export default function ChatLayout() {
             onWebSocketError={handleWebSocketError}
         >
             <div className="w-screen h-screen flex">
-                <aside className={`
-                fixed sm:relative inset-y-0 left-0
-                flex flex-col border-r border-black/20
-                ${open ? "w-full sm:w-72" : "w-0 overflow-hidden"}
-                transition-all duration-300 bg-[#202123] text-white
-            `}>
-                </aside>
+                <Sidebar open={open} >
+                    <ChatRoomList />
+                </Sidebar>
+
                 <dd />
                 <div className="flex-1 h-full flex flex-col relative">
                     <div className="h-12 flex flex-row justify-between items-center px-4 z-10 bg-white/80">
                         <button className="h-8 w-8" onClick={() => setOpen(!open)}>
                             <Bars3Icon className="h-full text-gray-600" />
                         </button>
-                        <button className="text-sm font-medium">Login</button>
                     </div>
 
                     <div className="flex-1 overflow-y-scroll">
